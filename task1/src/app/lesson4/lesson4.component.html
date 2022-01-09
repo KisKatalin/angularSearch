@@ -1,0 +1,78 @@
+<div class="first">
+  <div class="header">
+    <h2 class="headerText">My phone book!</h2>
+  </div>
+  <hr>
+  <div class="form">
+    <input type="text" id="inpt" placeholder="search text goes here" [(ngModel)]="search">
+    <input type="button" id="btn-add" class="btn" (click)="openAdd()" value="add phone">
+  </div>
+  <hr>
+</div>
+
+<div class="second">
+  <table id="table">
+    <tr class="first-tr">
+      <th>
+        <span (click)="firstSortClick()">First name</span>
+        <span *ngIf = firstAscVar >&#9650;</span>
+        <span *ngIf = firstDescVar>&#9660;</span>
+      </th>
+      <th>
+        <span (click)="secondSortClick()">Second name</span>
+        <span *ngIf = secondAscVar >&#9650;</span>
+        <span *ngIf = secondDescVar>&#9660;</span>
+      </th>
+      <th>
+        <span (click)="phoneSortClick()">Number</span>
+        <span *ngIf = phoneAscVar >&#9650;</span>
+        <span *ngIf = phoneDescVar>&#9660;</span>
+      </th>
+      <th>edit</th>
+      <th>delete</th>
+    </tr>
+
+    <tr class="newTr" *ngFor="let item of arr  | search: search | sort:type:activeColumn; index as i">
+      <th>{{item.first | titlecase}}</th>
+      <th>{{item.last | titlecase}}</th>
+      <th>{{item.phone | removeComma}}</th>
+      <th class="th-btn"><button value="Edit" class="btnTable" id="btn-edit2" (click)="editPhone(i)">edit</button></th>
+      <th class="th-btn"><button value="Delete" class="btnTable2" id="btn-delete"
+          (click)="deletePhone(i)">delete</button></th>
+
+    </tr>
+
+  </table>
+  <div class="edit" *ngIf="showEdit">
+    <div class="wind">
+      <h3 class="headerOfWind">Edit phone</h3>
+      <div class="x">x</div>
+    </div>
+    <hr>
+    <div class="formWind">
+      <input type="text" placeholder="first name goes here" [(ngModel)]="editFirstNameInpt" class="edit-inpt">
+      <input type="text" placeholder="last name goes here" [(ngModel)]="editLastNameInpt" class="edit-inpt">
+      <input type="number" placeholder="number goes here" [(ngModel)]="editPhoneInpt" class="edit-inpt">
+    </div>
+    <hr>
+    <div class="footerWind">
+      <input type="button" value="save" (click)="saveEditPhone()" class="save-btn">
+    </div>
+  </div>
+  <div class="add" *ngIf="showAdd">
+    <div class="wind">
+      <h3 class="headerOfWind">Add phone</h3>
+      <div class="x">x</div>
+    </div>
+    <hr>
+    <div class="formWind">
+      <input type="text" placeholder="first name goes here" [(ngModel)]="newFirstNameInpt" class="edit-inpt">
+      <input type="text" placeholder="last name goes here" [(ngModel)]="newLastNameInpt" class="edit-inpt">
+      <input type="text" placeholder="number goes here" [(ngModel)]="newPhoneInpt" class="edit-inpt">
+    </div>
+    <hr>
+    <div class="footerWind">
+      <input type="button" value="save" (click)="addPhone()" class="save-btn">
+    </div>
+  </div>
+</div>
